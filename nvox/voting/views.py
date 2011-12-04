@@ -1,12 +1,21 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.middleware.csrf import get_token
+from django.template import RequestContext
 
 from voting.models import Project, Vote
 
 def home(request):
     projects = Project.objects.all()
 
-    return render_to_response('voting/index.html', { 'projects': projects })
+    token = get_token(request)
+
+    resp = render_to_response('voting/index.html', { 'projects': projects }, context_instance=RequestContext(request))
+    resp.set_cookie('csrftoken', token)
+
+    return resp
 
 def vote_up(request):
     return vote(request,1)
@@ -15,16 +24,21 @@ def vote_down(request):
     return vote(request, -1)
 
 def vote(request, amt):
-    req = request.REQUEST
+    if request.user is not None and request.user.is_authenticated():
+        req = request.REQUEST
+        
+        p = Project.objects.get(pk=req["project"])
+        v = Vote(location="!", contribution=amt, project=p)
+        
+        v.save()
+        
+        if req["format"] == "json":
+            return HttpResponse("{ \"success\": true, \"votes\": %s }" % p.votes(), mimetype="application/json")
+        else:
+            return redirect('/')
+    else:
+        return HttpResponse("{ \"success\": false }",mimetype="application/json")
 
-    p = Project.objects.get(pk=req["project"])
-
-    print "Amt: %s" % amt
-    v = Vote(location="!", contribution=amt, project=p)
-
-    v.save()
-
-    return redirect('/')
 
 def create(request):
     req = request.REQUEST
@@ -40,3 +54,20 @@ def create(request):
     project.save()
 
     return redirect('/')
+
+def login_user(request):
+    username = password = ''
+
+    if request.POST or True:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        print "got username/pw: %s / %s".format(username, password)
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponse("authorized")
+        else:
+            return HttpResponse("unauthorized")

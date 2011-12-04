@@ -1,11 +1,11 @@
 	<div class="project">
 	  <div class="updown" style="float: left">
-	    <a href="/vote/up?project={{ project.pk }}">Up</a> / <a href="/vote/down?project={{ project.pk }}">Down</a>
+	    <a class="vote" href="#" id="up_{{ project.pk }}">Up</a> / <a class="vote" href="#" id="down_{{ project.pk }}">Down</a>
 	  </div>
 
 	  <div style="float: left; margin-left: 10px">
 	    <div>Votes</div>
-	    <div>{{ project.votes }}</div>
+	    <div id="votes_{{ project.pk }}">{{ project.votes }}</div>
 	  </div>
 
 	  <div style="float: left; margin-left: 10px">

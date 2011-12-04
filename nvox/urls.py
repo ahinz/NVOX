@@ -15,6 +15,8 @@ urlpatterns = patterns(
     url(r'^vote/up$', 'nvox.voting.views.vote_up'),
     url(r'^vote/down$', 'nvox.voting.views.vote_down'),
 
+    url(r'^plogin$', 'nvox.voting.views.login_user'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
