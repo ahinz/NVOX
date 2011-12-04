@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.middleware.csrf import get_token
 from django.template import RequestContext
 
@@ -39,7 +39,6 @@ def vote(request, amt):
     else:
         return HttpResponse("{ \"success\": false }",mimetype="application/json")
 
-
 def create(request):
     req = request.REQUEST
 
@@ -54,6 +53,12 @@ def create(request):
     project.save()
 
     return redirect('/')
+
+def logout(request):
+    if request.user is not None:
+        logout(request.user)
+
+    return HttpResponse("{ \"success\": \"true\" }", mimetype="application/json")
 
 def login_user(request):
     username = password = ''
