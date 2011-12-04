@@ -58,15 +58,15 @@ $(document).ajaxSend(function(event, xhr, settings) {
 		} else {
 		    var data = { "username": "administrator", "password": "12345" };
 
-		    alert("failed... trying to log you in");
 		    $.ajax({
 			dataType: 'json',
 			type: "POST",
 			url: "/plogin",
 			data: data,
 			success: function(json) {
-			    alert(JSON.stringify(json));
+			    //TODO: Re-submit vote
 			    if (json.not_authenticated) {
+				//TODO: Show error alert
 			    }
 			}
 		    })
