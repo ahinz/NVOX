@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>NVOX</title>
+
+    <meta name="description" content="NVOX is a platform to tell decision makers what you want">
+    <meta name="author" content="RHoK4 Hackathon Project">
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+
+    <style type="text/css">
+      #addtbl td {
+      border-top: 0px;
+}
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Topbar
+    ================================================== -->
+    <div class="topbar" data-scrollspy="scrollspy" >
+      <div class="topbar-inner">
+        <div class="container">
+          <a class="brand" href="#">NVOX</a>
+          <ul class="nav">
+            <li class="active"><a href="#overview">Overview</a></li>
+            <li><a href="#vote">Vote</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top: 75px;">
+      <section id="vote">
+	{% for project in projects %}
+	{% include "voting/entry.html" with project=project %}
+	{% endfor %}
+      </section>
+
+      <section id="create">
+	<form method="GET" action="create">
+	  <table id="addtbl">
+	    <tr><td>Title:</td><td><input name="title"></td><td>Location (Lat,Lng):</td><td><input name="loc"></td></tr>
+	    <tr><td>Link:</td><td><input name="link"></td><td>Image URL:</td><td><input name="image"></td></tr>
+	    <tr><td>Cost:</td><td><input name="cost"></td><td>Complexity:</td><td><input name="complexity"></td></tr>
+	    <tr><td>Description</td><td colspan="3"><textarea name="description"></textarea></td></tr>
+	    <tr><td><input type="submit"></input></td></tr>
+	  </table>
+	</form>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>
+	  Designed for RHoK
+        </p>
+      </div>
+    </footer>
+
+    <!-- Le javascript -->
+    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script src="http://autobahn.tablesorter.com/jquery.tablesorter.min.js"></script>
+    <script src="static/js/bootstrap-dropdown.js"></script>
+    <script src="static/js/bootstrap-twipsy.js"></script>
+    <script src="static/js/bootstrap-scrollspy.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,30 @@
+	<div class="project">
+	  <div class="updown" style="float: left">
+	    <a href="/vote/up?project={{ project.pk }}">Up</a> / <a href="/vote/down?project={{ project.pk }}">Down</a>
+	  </div>
+
+	  <div style="float: left; margin-left: 10px">
+	    <div>Votes</div>
+	    <div>{{ project.votes }}</div>
+	  </div>
+
+	  <div style="float: left; margin-left: 10px">
+	    <div>Cost</div>
+	    <div>{{ project.cost }}</div>
+	  </div>
+
+	  <div style="float: left; margin-left: 10px">
+	    <div>Complexity</div>
+	    <div>{{ project.complexity }}</div>
+	  </div>
+
+	  <div style="float: left; margin-left: 10px;">
+	    {{ project.title }} <br >
+	    More info at <a href="{{ project.link }}">{{ project.link }}</a>
+	  </div>
+	  <div style="float: right; margin-right: 10px;">
+	    
+	    <img src="{{ project.image }}" width="100px">
+	  </div>
+	  <div style="clear: both;"></div>
+	</div>

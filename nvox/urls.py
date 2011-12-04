@@ -4,10 +4,16 @@ from django.conf.urls.defaults import patterns, include, url
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # Examples:
     # url(r'^$', 'nvox.views.home', name='home'),
-    # url(r'^nvox/', include('nvox.foo.urls')),
+    # url(r'^nvox/', include('nvox.foo.urls')),                       
+
+    url(r'^$', 'nvox.voting.views.home'),
+    url(r'^create$', 'nvox.voting.views.create'),
+    url(r'^vote/up$', 'nvox.voting.views.vote_up'),
+    url(r'^vote/down$', 'nvox.voting.views.vote_down'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
