@@ -1,9 +1,12 @@
 {% extends "voting/base.html" %}
 
 {% block section %}
+      <section id="graph">
+	<div id="chartdiv" style="width:800px; height:300px; background-color:#FFFFFF; margin-left: auto; margin-right: auto; margin-bottom: 40px"></div>
+      </section>
       <section id="vote">
 	{% for project in projects %}
-	{% include "voting/entry.html" with project=project %}
+	{% include "voting/entry_info.html" with project=project %}
 	{% endfor %}
       </section>
 
